@@ -69,14 +69,15 @@ source ~/.bash_profile
 rbenv install 2.4.1
 rbenv local 2.4.1
 gem install rails
+
+sudo yum install --enablerepo=epel nodejs
+
 # サンプルを動かす
 rails new test_app
 cd test_app 
 
 rails server -b 0.0.0.0
 
-### JSのエラーがでたら以下を実行
-sudo yum install --enablerepo=epel nodejs
 ```
 
 --- 
