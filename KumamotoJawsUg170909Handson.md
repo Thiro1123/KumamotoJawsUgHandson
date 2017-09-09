@@ -9,7 +9,7 @@
 
 # セッション1 ローカルでRailアプリを動かしてみる。
 
-以下の1章をやっていきます
+以下の1章をやっていきます  
 https://railstutorial.jp/
 
 ---
@@ -25,28 +25,28 @@ https://railstutorial.jp/
 
 ## IAMの権限準備の準備
 ### EC2ロールの準備
-作業用EC2に割り当てるロールを作成します。
-以下の権限を付与して下さい。
+作業用EC2に割り当てるロールを作成します。  
+以下の権限を付与して下さい。  
 
-管理ポリシー
-AmazonEC2ContainerRegistryFullAccess
-AmazonEC2ContainerServiceFullAccess
-AmazonEC2FullAccess
-CloudWatchFullAccess
-
-信頼関係
-ec2.amazonaws.com
+管理ポリシー  
+AmazonEC2ContainerRegistryFullAccess  
+AmazonEC2ContainerServiceFullAccess  
+AmazonEC2FullAccess  
+CloudWatchFullAccess  
+  
+信頼関係  
+ec2.amazonaws.com  
 
 -----
 
 ## 作業用EC2の準備
 
-作業用のEC2から今回の作業は進めます。
-作る上で以下の設定を入れて下さい。
-・動作確認のためにパブリックIPを付与して下さい。
-・SGは開けすぎないようにしてください。
-・使用するAMIは以下のAmazonLinuxの最新のAMIを使います。
-
+作業用のEC2から今回の作業は進めます。  
+作る上で以下の設定を入れて下さい。  
+・動作確認のためにパブリックIPを付与して下さい。  
+・SGは開けすぎないようにしてください。  
+・使用するAMIは以下のAmazonLinuxの最新のAMIを使います。  
+  
 ---
 
 # セッション3 RoR のサンプルを動かしてみましょう
@@ -82,8 +82,8 @@ sudo yum install --enablerepo=epel nodejs
 --- 
 
 ## ALBをAWSコンソールから作成する
-・ターゲットは3000ポート
-・EC2と通信できるようにする
+・ターゲットは3000ポート  
+・EC2と通信できるようにする  
 
 --- 
 
@@ -126,7 +126,6 @@ docker build -t demo_app .
 
 ここまででRoRのサンプルが動くDocker イメージができました。
 
-
 ---
 # セッション5 ECS で動かしてみよう
 以下の作業は作業用のEC2から行います。
@@ -148,19 +147,19 @@ ecs create-cluster --cluster-name ${Cluster_Name}
 ## クラスタ用のEC2準備
 http://docs.aws.amazon.com/ja_jp/AmazonECS/latest/developerguide/ecs-optimized_AMI_launch_latest.html
 
-使うのは最新のAMIです。
-構築はGUIで行います
-その時にUser dataに以下を追加します。
+使うのは最新のAMIです。  
+構築はGUIで行います  
+その時にUser dataに以下を追加します。  
 ```
 #!/bin/bash
 echo ECS_CLUSTER= ${Cluster_Name} >> /etc/ecs/ecs.config
 ```
-※ ${Cluster_Name} は一個前の手順で作ったものをコピペして下さい。
+※ ${Cluster_Name} は一個前の手順で作ったものをコピペして下さい。  
 
 -----
 ## ec2の起動
 
-GUIで実施
+GUIで実施  
 
 -----
 ## ECRの作成
@@ -285,17 +284,18 @@ ecs register-task-definition --cli-input-json file://sample.json
 ---
 
 ## ALB Setting
-GUIで設定します。
+GUIで設定します。  
 
-以上でECS上でRoRのサンプルが動くかと思います。
+以上でECS上でRoRのサンプルが動くかと思います。  
 
-ちなみに、ECRのログインファイルを作成しましたが、現状ではログイン時に使用したファイルを使えば
-どこからでもイメージがPush/Pullできます。
+ちなみに、ECRのログインファイルを作成しましたが、  
+現状ではログイン時に使用したファイルを使えば  
+どこからでもイメージがPush/Pullできます。  
 
 ```
 ./docker_login.sh
 sudo docker pull ${ECR_Url}/${ECR_Rep_Name}:${ECR_Image_Tag_Name}-${ECR_Image_Tag_Num} 
 ```
-そのため、ハンズオンではやりませんでしたが、ECRにはアクセス制限をしましょう。
-
-以上です。
+そのため、ハンズオンではやりませんでしたが、ECRにはアクセス制限をしましょう。  
+  
+以上です。お疲れ様でした。  
