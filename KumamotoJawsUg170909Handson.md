@@ -107,7 +107,7 @@ rails server -b 0.0.0.0
 sudo yum install -y docker
 sudo service docker start
 ```
-
+以下の内容のDockerfileを作成します。
 ```
 FROM ruby:2.3.3
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
